@@ -1,57 +1,89 @@
 import { useState, useContext } from "react";
 import AuthContext from "../context/AuthContext";
+import { TextField, Button } from "@mui/material";
 
 function Register() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
-  const { registerUser } = useContext(AuthContext);
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [senha2, setSenha2] = useState("");
+    const { registerUser } = useContext(AuthContext);
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    registerUser(username, password, password2);
-  };
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    };
 
-  return (
-    <section>
-      <form onSubmit={handleSubmit}>
-        <h1>Register</h1>
-        <hr />
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            onChange={e => setUsername(e.target.value)}
-            placeholder="Username"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            onChange={e => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="confirm-password">Confirm Password</label>
-          <input
-            type="password"
-            id="confirm-password"
-            onChange={e => setPassword2(e.target.value)}
-            placeholder="Confirm Password"
-            required
-          />
-          <p>{password2 !== password ? "Passwords do not match" : ""}</p>
-        </div>
-        <button>Register</button>
-      </form>
-    </section>
-  );
+    const handleSenhaChange = (e) => {
+        setSenha(e.target.value);
+    };
+    const handleSenha2Change = (e) => {
+        setSenha2(e.target.value);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        registerUser(email, senha, senha2);
+    };
+
+    return (
+        <form className="login-form" onSubmit={handleSubmit}>
+            <h1>Cadastro </h1>
+
+            <TextField
+                placeholder="Insira seu email"
+                id="standard-basic"
+                label="Username"
+                variant="standard"
+                value={email}
+                required
+                onChange={handleEmailChange}
+                fullWidth
+            />
+
+            <TextField
+                placeholder="Insira sua senha"
+                id="standard-basic"
+                label="Senha"
+                variant="standard"
+                value={senha}
+                type="password"
+                required
+                onChange={handleSenhaChange}
+                fullWidth
+            />
+            <TextField
+                placeholder="Insira sua senha novamete"
+                id="standard-basic"
+                label="Confirme sua senha"
+                variant="standard"
+                required
+                type="password"
+                value={senha2}
+                onChange={handleSenha2Change}
+                fullWidth
+            />
+
+            <Button
+                style={{ marginTop: "2rem" }}
+                type="submit"
+                variant="contained"
+                color="secondary"
+                size="large"
+            >
+                Cadastrar
+            </Button>
+
+            <p>
+                Já tem conta?{" "}
+                <Button
+                    style={{ textTransform: "none" }}
+                    href="/login"
+                    variant="text"
+                >
+                    Login
+                </Button>{" "}
+            </p>
+        </form>
+    );
 }
 
 export default Register;

@@ -38,7 +38,22 @@ def getRoutes(request):
 @permission_classes([IsAuthenticated])
 def testEndPoint(request):
     if request.method == 'GET':
-        data = f"Congratulation {request.user}, your API just responded to GET request"
+
+        data = {
+            "nome": "Marcelo",
+            "meses": ["JAN2022", "FEV2022", "MAR2022", "ABR2022"],
+            "transacoes": [
+                {"id": 1, "valor": 100, "data": "2021-01-01",
+                    "nome": "teste1", "categoria": "festa", },
+                {"id": 2, "valor": 200, "data": "2021-01-01",
+                    "nome": "teste2", "categoria": "restaurante", },
+                {"id": 3, "valor": 300, "data": "2021-01-01",
+                    "nome": "teste3", "categoria": "academia", },
+                {"id": 4, "valor": 400, "data": "2021-01-01",
+                    "nome": "test4", "categoria": "outros", },
+            ]
+        }
+
         return Response({'response': data}, status=status.HTTP_200_OK)
     elif request.method == 'POST':
         text = request.POST.get('text')
