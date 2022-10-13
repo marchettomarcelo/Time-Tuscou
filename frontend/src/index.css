@@ -102,6 +102,34 @@ main{
   margin-bottom: 0px;
 }
 
+.div-registro-transacao{
+  border: solid black 2px;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.infos-transacoa{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  
+}
+
+.titulo-transacao{
+  margin: 0px;
+}
+
+.descricao-transacao{
+  margin: 0px;
+}
+
 /* on celphone, loginform is 90 vw */
 @media screen and (max-width: 600px) {
   main{
