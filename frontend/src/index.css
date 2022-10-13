@@ -20,6 +20,13 @@ main{
   margin: 0 auto;
 }
 
+.div-main-page{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 
 .login-form{
   margin-top: 5rem;
@@ -31,7 +38,7 @@ main{
 }
 
 .div-cabecalho{
-  margin-top: 5rem;
+  margin-top: 2.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -61,10 +68,47 @@ main{
   margin: 0px;
 }
 
+.div-dashboard{
+  box-sizing: border-box;
+  padding-top: 0.5rem;
+  display: flex;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: rgba( 255, 255, 255, 0.35 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 17px );
+  -webkit-backdrop-filter: blur( 17px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+.div-dentro-dashboard{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 90%;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  
+  
+}
+
+.infos-principais{
+  margin-bottom: 0px;
+}
 
 /* on celphone, loginform is 90 vw */
 @media screen and (max-width: 600px) {
+  main{
+    width: 90vw;
+  }
   .login-form{
     width: 90vw;
   }
+
 }

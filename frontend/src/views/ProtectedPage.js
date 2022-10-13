@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import useAxios from "../utils/useAxios";
 import AuthContext from "../context/AuthContext";
 import Cabecalho from "../components/Cabecalho";
+import DashBoard from "../components/DashBoard";
 
 function ProtectedPage() {
     const [res, setRes] = useState("");
@@ -24,14 +25,14 @@ function ProtectedPage() {
     }, []);
 
     return (
-        <>
+        <div className="div-main-page">
             <Cabecalho nome={res.nome} meses={res.meses} />
-            {/* <DashBoard /> */}
+            <DashBoard />
 
             <Button variant="contained" color="primary" onClick={logoutUser}>
                 Log out
             </Button>
-        </>
+        </div>
     );
 }
 
