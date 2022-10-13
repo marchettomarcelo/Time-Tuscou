@@ -9,6 +9,8 @@ from rest_framework import generics
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
+from .models import *
+from datetime import datetime
 
 # Create your views here.
 
@@ -66,12 +68,13 @@ def testEndPoint(request):
 @permission_classes([IsAuthenticated])
 def upload_transactions_info(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        value = request.POST.get('value')
+        description = request.POST.get('description')
+        amount = request.POST.get('value')
         date = request.POST.get('date')
         category = request.POST.get('category')
-    # TODO: save data to database
-    return Response({'response': 'ok'}, status=status.HTTP_200_OK)
+    transaction = Transaction.objects.create(description=description, amount=amount, date=date, category=category)
+    transaction.save()
+    return Response({'response': 'success'}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])

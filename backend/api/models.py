@@ -25,12 +25,23 @@ class Document(models.Model):
     account_number = models.CharField(max_length=100)
     account_name = models.CharField(max_length=100)
     total_amount = models.CharField(max_length=100)
+class Category(models.Model):
+    CHOICES = (
+        ('1', 'ENTRETENIMENTO'),
+        ('2', 'ALIMENTAÇÃO'),
+        ('3', 'TRANSPORTE'),
+        ('4', 'SAÚDE'),
+        ('5', 'EDUCAÇÃO'),
+        ('6', 'OUTROS'),
+    )
+    name = models.CharField(max_length=100, choices=CHOICES, default='6')
 
 class Transaction(models.Model):
-    document = models.ForeignKey(Document, on_delete=models.CASCADE)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE, default=None)
     date = models.DateField()
     description = models.CharField(max_length=100, default='Sem Descrição')
-    category = models.CharField(max_length=100, default='Sem Categoria')
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
     amount = models.CharField(max_length=100)
+
 
 
