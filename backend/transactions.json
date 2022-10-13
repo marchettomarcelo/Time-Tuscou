@@ -1,0 +1,14 @@
+{
+  "nome": "Marcelo",
+  "months": ["JAN2022", "FEV2022", "MAR2022", "ABR2022"],
+  "transactions": [
+    {"id": 1, "valor": 100, "data": "2021-01-01",
+      "nome": "teste1", "categoria": "festa"},
+    {"id": 2, "valor": 200, "data": "2021-01-01",
+      "nome": "teste2", "categoria": "restaurante"},
+    {"id": 3, "valor": 300, "data": "2021-01-01",
+      "nome": "teste3", "categoria": "academia"},
+    {"id": 4, "valor": 400, "data": "2021-01-01",
+      "nome": "test4", "categoria": "outros"},
+  ]
+}
