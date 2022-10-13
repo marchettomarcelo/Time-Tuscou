@@ -18,7 +18,7 @@ class Bank_Account(models.Model):
 
 class Document(models.Model):
     account = models.ForeignKey(Bank_Account, on_delete=models.CASCADE)
-    docfile = models.FileField(upload_to='documents/%Y/%m/%d')
+    doc_file = models.FileField(upload_to='documents/%Y/%m/%d')
     document_date = models.DateField()
     bank_name = models.CharField(max_length=100)
     bank_code = models.CharField(max_length=100)
@@ -29,8 +29,8 @@ class Document(models.Model):
 class Transaction(models.Model):
     document = models.ForeignKey(Document, on_delete=models.CASCADE)
     date = models.DateField()
-    description = models.CharField(max_length=100, default = 'Sem Descrição')
-    category = models.CharField(max_length=100, default ='Sem Categoria')
+    description = models.CharField(max_length=100, default='Sem Descrição')
+    category = models.CharField(max_length=100, default='Sem Categoria')
     amount = models.CharField(max_length=100)
 
 

@@ -61,3 +61,22 @@ def testEndPoint(request):
         data = f'Congratulation your API just responded to POST request with text: {text}'
         return Response({'response': data}, status=status.HTTP_200_OK)
     return Response({}, status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def upload_transactions_info(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        value = request.POST.get('value')
+        date = request.POST.get('date')
+        category = request.POST.get('category')
+    # TODO: save data to database
+    return Response({'response': 'ok'}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def upload_transactions_file(request):
+    if request.method == 'POST':
+        file = request.FILES.get('file')
+    # TODO: save data to database and create new transactions
+    return Response({'response': 'ok'}, status=status.HTTP_200_OK)
