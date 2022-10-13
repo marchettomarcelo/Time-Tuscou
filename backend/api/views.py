@@ -82,4 +82,7 @@ def upload_transactions_file(request):
     if request.method == 'POST':
         file = request.FILES.get('file')
     # TODO: save data to database and create new transactions
+    document = Document.objects.create(doc_file=file, document_date=datetime.now())
+    document.save()
+    # TODO: ORC - read file and create transactions
     return Response({'response': 'ok'}, status=status.HTTP_200_OK)

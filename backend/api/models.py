@@ -17,14 +17,10 @@ class Bank_Account(models.Model):
     account_name = models.CharField(max_length=100)
 
 class Document(models.Model):
-    account = models.ForeignKey(Bank_Account, on_delete=models.CASCADE)
+    account = models.ForeignKey(Bank_Account, on_delete=models.CASCADE, default=None)
     doc_file = models.FileField(upload_to='documents/%Y/%m/%d')
     document_date = models.DateField()
-    bank_name = models.CharField(max_length=100)
-    bank_code = models.CharField(max_length=100)
-    account_number = models.CharField(max_length=100)
-    account_name = models.CharField(max_length=100)
-    total_amount = models.CharField(max_length=100)
+    total_amount = models.CharField(max_length=100, default=0)
 class Category(models.Model):
     CHOICES = (
         ('1', 'ENTRETENIMENTO'),
@@ -42,6 +38,5 @@ class Transaction(models.Model):
     description = models.CharField(max_length=100, default='Sem Descrição')
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     amount = models.CharField(max_length=100)
-
 
 
