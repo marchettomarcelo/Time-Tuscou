@@ -43,14 +43,14 @@ def testEndPoint(request):
             "nome": "Marcelo",
             "meses": ["JAN2022", "FEV2022", "MAR2022", "ABR2022"],
             "transacoes": [
-                {"id": 1, "valor": 100, "data": "2021-01-01",
-                    "nome": "teste1", "categoria": "festa", },
-                {"id": 2, "valor": 200, "data": "2021-01-01",
-                    "nome": "teste2", "categoria": "restaurante", },
-                {"id": 3, "valor": 300, "data": "2021-01-01",
-                    "nome": "teste3", "categoria": "academia", },
-                {"id": 4, "valor": 400, "data": "2021-01-01",
-                    "nome": "test4", "categoria": "outros", },
+                {"id": 1, "amount": 100, "date": "2021-01-01",
+                    "description": "teste1", "category": "festa", },
+                {"id": 2, "amount": 200, "date": "2021-01-01",
+                    "description": "teste2", "category": "restaurante", },
+                {"id": 3, "amount": 300, "date": "2021-01-01",
+                    "description": "teste3", "category": "academia", },
+                {"id": 4, "amount": 400, "date": "2021-01-01",
+                    "description": "test4", "category": "outros", },
             ]
         }
 

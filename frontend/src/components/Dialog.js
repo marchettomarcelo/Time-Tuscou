@@ -8,11 +8,11 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-export default function DialogForm({ open, handleClose, criarTransacao }) {
+export default function DialogForm({ open, handleClose, adicionarTransacao }) {
     const [amount, setAmount] = useState("");
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
-    const [category, setCategory] = useState("Bom dia");
+    const [category, setCategory] = useState("");
 
     // useEffect(() => {
     //     if (meses) {
@@ -36,14 +36,24 @@ export default function DialogForm({ open, handleClose, criarTransacao }) {
         setCategory(event.target.value);
     };
 
+    const closeAndAdd = () => {
+        adicionarTransacao({
+            amount,
+            description,
+            date,
+            category,
+        });
+        handleClose();
+    };
+
     return (
         <Dialog
             open={open}
             onClose={handleClose}
-            style={{ borderRadius: "15px" }}
+            style={{ borderRadius: "20px", gap: "1rem" }}
         >
             <DialogTitle>Insira as informações de uma transação</DialogTitle>
-            <DialogContent>
+            <DialogContent style={{ gap: "1rem" }}>
                 <DialogContentText>
                     To subscribe to this website, please enter your email
                     address here. We will send updates occasionally.
@@ -83,11 +93,13 @@ export default function DialogForm({ open, handleClose, criarTransacao }) {
                     variant="standard"
                 />
 
-                <FormControl>
-                    <InputLabel id="demo-simple-select-label">Mês</InputLabel>
-
+                <FormControl sx={{ mt: 2 }} fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                        Categoria
+                    </InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
+                        label="Categoria"
                         id="demo-simple-select"
                         value={category}
                         onChange={handleCategoryChange}
@@ -111,7 +123,7 @@ export default function DialogForm({ open, handleClose, criarTransacao }) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Cancelar</Button>
-                <Button onClick={() => criarTransacao()}>Adicionar</Button>
+                <Button onClick={closeAndAdd}>Adicionar</Button>
             </DialogActions>
         </Dialog>
     );

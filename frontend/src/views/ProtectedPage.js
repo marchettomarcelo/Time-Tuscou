@@ -25,20 +25,31 @@ function ProtectedPage() {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const adicionarTransacao = (novaTransacao) => {
+        // Fazer request pra base
+
+        let resNova = { ...res };
+        resNova.transacoes.push(novaTransacao);
+        setRes(resNova);
+    };
+
     if (res) {
         return (
             <div className="div-main-page">
                 <Cabecalho nome={res.nome} meses={res.meses} />
                 <DashBoard />
-                <BotoesInserir />
+
+                <BotoesInserir adicionarTransacao={adicionarTransacao} />
+
                 {res.transacoes.map((transacao) => {
                     return (
                         <RegistroTransacao
                             id={transacao.id}
-                            amount={transacao.valor}
-                            date={transacao.data}
-                            description={transacao.nome}
-                            category={transacao.categoria}
+                            amount={transacao.amount}
+                            date={transacao.date}
+                            description={transacao.description}
+                            category={transacao.category}
                         />
                     );
                 })}

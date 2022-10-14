@@ -5,14 +5,15 @@ import { useState } from "react";
 // import react
 import React from "react";
 
-export default function BotoesInserir() {
+export default function BotoesInserir({ adicionarTransacao }) {
     const [open, setOpen] = React.useState(false);
 
-    const criarTransacao = () => {
-        // Fazer request para o banco
+    // const criarTransacao = ({ amount, description, date, category }) => {
+    //     adicionarTransacao({ amount, description, date, category });
+    //     // Fazer request para o banco
 
-        setOpen(false);
-    };
+    //     setOpen(false);
+    // };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -35,7 +36,7 @@ export default function BotoesInserir() {
                 <DialogForm
                     open={open}
                     handleClose={handleClose}
-                    criarTransacao={criarTransacao}
+                    adicionarTransacao={adicionarTransacao}
                 />
 
                 <Button>Extrato</Button>

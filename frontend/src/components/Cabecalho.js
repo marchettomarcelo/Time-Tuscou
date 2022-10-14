@@ -30,9 +30,6 @@ export default function Cabecalho({ nome, meses }) {
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={mes}
-                            // displayEmpty={true}
-                            // renderValue={() => "Escolha um mês"}
-                            defaultValue="Escolha um mês"
                             label="Mes"
                             onChange={handleChange}
                         >
