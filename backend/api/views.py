@@ -11,6 +11,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from .models import *
 from datetime import datetime
+from .orc_tools import *
 
 # Create your views here.
 
@@ -81,8 +82,11 @@ def upload_transactions_info(request):
 def upload_transactions_file(request):
     if request.method == 'POST':
         file = request.FILES.get('file')
-    # TODO: save data to database and create new transactions
     document = Document.objects.create(doc_file=file, document_date=datetime.now())
     document.save()
     # TODO: ORC - read file and create transactions
+    '''
+    context = orc(document.doc_file.path)
+    transaction = Transaction.objects.create(description='teste', amount=100, date=datetime.now(), category='teste')
+    '''
     return Response({'response': 'ok'}, status=status.HTTP_200_OK)
