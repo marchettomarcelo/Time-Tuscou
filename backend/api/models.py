@@ -30,7 +30,7 @@ class Category(models.Model):
         ('5', 'EDUCAÇÃO'),
         ('6', 'OUTROS'),
     )
-    name = models.CharField(max_length=100, choices=CHOICES, default='6')
+    name = models.CharField(max_length=1, choices=CHOICES, default='6')
 
 class Transaction(models.Model):
     document = models.ForeignKey(Document, on_delete=models.CASCADE, default=None)
