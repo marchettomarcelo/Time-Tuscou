@@ -9,6 +9,9 @@ from rest_framework import generics
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
+from .models import *
+from datetime import datetime
+from .orc_tools import *
 
 # Create your views here.
 
@@ -61,3 +64,29 @@ def testEndPoint(request):
         data = f'Congratulation your API just responded to POST request with text: {text}'
         return Response({'response': data}, status=status.HTTP_200_OK)
     return Response({}, status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def upload_transactions_info(request):
+    if request.method == 'POST':
+        description = request.POST.get('description')
+        amount = request.POST.get('value')
+        date = request.POST.get('date')
+        category = request.POST.get('category')
+    transaction = Transaction.objects.create(description=description, amount=amount, date=date, category=category)
+    transaction.save()
+    return Response({'response': 'success'}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def upload_transactions_file(request):
+    if request.method == 'POST':
+        file = request.FILES.get('file')
+    document = Document.objects.create(doc_file=file, document_date=datetime.now())
+    document.save()
+    # TODO: ORC - read file and create transactions
+    '''
+    context = orc(document.doc_file.path)
+    transaction = Transaction.objects.create(description='teste', amount=100, date=datetime.now(), category='teste')
+    '''
+    return Response({'response': 'ok'}, status=status.HTTP_200_OK)
