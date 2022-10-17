@@ -73,12 +73,18 @@ def upload_transactions_info(request):
     # print(request.user.id, "reuest of id")
 
     if request.method == 'POST':
-        description = request.POST.get('description')
-        amount = request.POST.get('value')
-        date = request.POST.get('date')
-        category = request.POST.get('category')
-        user = request.POST.get('user')
-        category = Category.objects.get(name=category)
+
+        description = request.data.get('description')
+        amount = request.data.get('value')
+        date = request.data.get('date')
+        category = request.data.get('category')
+        user = request.data.get('user')
+
+        print(, "category no views")
+
+        category = Category.objects.create(name=category)
+        category.save()
+
     transaction = Transaction.objects.create(
         user=user, description=description, amount=amount, date=date, category=category)
     transaction.save()

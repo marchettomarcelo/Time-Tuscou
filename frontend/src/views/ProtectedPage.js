@@ -28,6 +28,7 @@ function ProtectedPage() {
 
     const adicionarTransacao = async (novaTransacao) => {
         // Fazer request pra base
+        console.log(novaTransacao);
 
         const response = await api.post("/transactions/", novaTransacao);
 
