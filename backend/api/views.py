@@ -77,9 +77,8 @@ def upload_transactions_info(request):
         amount = request.POST.get('value')
         date = request.POST.get('date')
         category = request.POST.get('category')
-        user_id = request.user.id
-        user = User.objects.get(id=user_id)
-
+        user = request.POST.get('user')
+        category = Category.objects.get(name=category)
     transaction = Transaction.objects.create(
         user=user, description=description, amount=amount, date=date, category=category)
     transaction.save()

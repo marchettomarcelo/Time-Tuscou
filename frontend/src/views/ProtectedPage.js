@@ -26,8 +26,10 @@ function ProtectedPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const adicionarTransacao = (novaTransacao) => {
+    const adicionarTransacao = async (novaTransacao) => {
         // Fazer request pra base
+
+        const response = await api.post("/transactions/", novaTransacao);
 
         let resNova = { ...res };
         resNova.transacoes.push(novaTransacao);
