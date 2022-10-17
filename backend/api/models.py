@@ -34,6 +34,7 @@ class Category(models.Model):
     name = models.CharField(max_length=1, choices=CHOICES, default='6')
 
 class Transaction(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.PROTECT)
     document = models.ForeignKey(Document, on_delete=models.CASCADE, default=None)
     date = models.DateField()
     description = models.CharField(max_length=100, default='Sem Descrição')
