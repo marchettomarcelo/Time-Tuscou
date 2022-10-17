@@ -80,7 +80,7 @@ def upload_transactions_info(request):
         category = request.data.get('category')
         user = request.data.get('user')
 
-        print(, "category no views")
+        # print(, "category no views")
 
         category = Category.objects.create(name=category)
         category.save()
