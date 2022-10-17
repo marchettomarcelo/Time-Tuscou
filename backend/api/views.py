@@ -65,25 +65,34 @@ def testEndPoint(request):
         return Response({'response': data}, status=status.HTTP_200_OK)
     return Response({}, status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def upload_transactions_info(request):
+
+    # print(request.user.id, "reuest of id")
+
     if request.method == 'POST':
         description = request.POST.get('description')
         amount = request.POST.get('value')
         date = request.POST.get('date')
         category = request.POST.get('category')
-        user = request.POST.get('user')
-    transaction = Transaction.objects.create(user=user, description=description, amount=amount, date=date, category=category)
+        user_id = request.user.id
+        user = User.objects.get(id=user_id)
+
+    transaction = Transaction.objects.create(
+        user=user, description=description, amount=amount, date=date, category=category)
     transaction.save()
     return Response({'response': 'success'}, status=status.HTTP_200_OK)
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def upload_transactions_file(request):
     if request.method == 'POST':
         file = request.FILES.get('file')
-    document = Document.objects.create(doc_file=file, document_date=datetime.now())
+    document = Document.objects.create(
+        doc_file=file, document_date=datetime.now())
     document.save()
     # TODO: ORC - read file and create transactions
     '''
