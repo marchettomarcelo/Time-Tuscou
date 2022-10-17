@@ -74,6 +74,7 @@ def upload_transactions_info(request):
         date = request.POST.get('date')
         category = request.POST.get('category')
         user = request.POST.get('user')
+        category = Category.objects.get(name=category)
     transaction = Transaction.objects.create(user=user, description=description, amount=amount, date=date, category=category)
     transaction.save()
     return Response({'response': 'success'}, status=status.HTTP_200_OK)
