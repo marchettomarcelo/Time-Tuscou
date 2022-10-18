@@ -29,3 +29,7 @@ A análise da nossa pesquisa de validação está disponível no link a seguir: 
 Nossas histórias de usuário e priorização estão disponíveis em nosso quadro Miro, <a href="https://miro.com/app/board/uXjVPPf_Cn0=/?share_link_id=684503880772">clique aqui</a> para acessá-lo.
 
 Também estão disponíveis no link a seguir: <a href="https://docs.google.com/document/d/1S-5eT1Ek5PoYlLpjB808Q6wl9RJ9M3yQAw1VkiaOBJs/edit?usp=sharing">Histórias de Usuário</a>
+
+## Primeira versão do Fluxo de Telas:
+
+<a href='https://docs.google.com/document/d/1x9E3nC_wd-AsONpyJaAmXbdNkK8P_i4Rsu9hGczP0DY/edit?usp=sharing'>Clique aqui</a> para acessar.
