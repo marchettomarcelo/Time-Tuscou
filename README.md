@@ -1,4 +1,4 @@
- Time Tuscou
+# Time Tuscou
 
 ## Componentes do Grupo:
 - <a href="https://github.com/FeMCDias">Felipe Maluli</a>
