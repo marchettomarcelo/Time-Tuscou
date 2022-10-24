@@ -20,7 +20,6 @@ const LoginPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(e.target.);
 
         loginUser(email, senha);
     };

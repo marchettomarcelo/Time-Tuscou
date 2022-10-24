@@ -51,3 +51,7 @@ class Transaction(models.Model):
     description = models.CharField(max_length=100, default='Sem Descrição')
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     amount = models.CharField(max_length=100)
+
+    def __str__(self):
+
+        return f'{self.description} - R${self.amount} - {self.date}'
