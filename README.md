@@ -33,3 +33,6 @@ Também estão disponíveis no link a seguir: <a href="https://docs.google.com/d
 ## Primeira versão do Fluxo de Telas:
 
 <a href='https://docs.google.com/document/d/1x9E3nC_wd-AsONpyJaAmXbdNkK8P_i4Rsu9hGczP0DY/edit?usp=sharing'>Clique aqui</a> para acessar.
+
+## Tópicos da Reunião de Planejamento (24/10):
+<a href='https://docs.google.com/document/d/1Z_befx50Eez1fQansX6c28Fx-10cFPER-Rl9brAjnTo/edit?usp=sharing'>Clique aqui</a> para acessar.
