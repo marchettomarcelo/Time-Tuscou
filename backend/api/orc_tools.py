@@ -118,19 +118,53 @@ def orc(path):
                 if line != '' and line.lower().find('nome') == -1 and line.lower().find('agência') == -1 and line.lower().find('extrato') == -1 and line.lower().find('saldo') == -1:
                     
                     if line.split(' ')[0].find('/') == -1:
-                        context['transactions'].append({
-                            'data': line.split(' ')[0].replace(';', '').replace('.', '').replace(',', '').replace(':','')[0:2] + '/' + line.split(' ')[0].replace(';', '').replace('.', '').replace(',', '').replace(':','')[2:4],
-                            'descricao': ' '.join(line.split(' ')[1:-1]),
-                            'valor': float(line.split(' ')[-1].replace('.', '').replace(',', '.').replace('-','')),
-                            'category': 'Não categorizado'
-                        })
+                        if line.split(' ')[-1].replace('-','')[0] == '.':
+                            
+                            context['transactions'].append({
+                                'data': line.split(' ')[0].replace(';', '').replace('.', '').replace(',', '').replace(':','')[0:2] + '/' + line.split(' ')[0].replace(';', '').replace('.', '').replace(',', '').replace(':','')[2:4],
+                                'descricao': ' '.join(line.split(' ')[1:-1]),
+                                'valor': float(line.split(' ')[-2]),
+                                'category': 'Não categorizado'
+                            })
+                        else:
+                            if line.split(' ')[-1].replace('-','').replace(',','.').count('.') > 1 :
+                                context['transactions'].append({
+                                    'data': line.split(' ')[0].replace(';', '').replace('.', '').replace(',', '').replace(':','')[0:2] + '/' + line.split(' ')[0].replace(';', '').replace('.', '').replace(',', '').replace(':','')[2:4],
+                                    'descricao': ' '.join(line.split(' ')[1:-1]),
+                                    'valor':float(line.split(' ')[-1].replace('-','').replace(',','.').replace('.','',1)),
+                                    'category': 'Não categorizado'
+                                })
+                            else:
+                                context['transactions'].append({
+                                    'data': line.split(' ')[0].replace(';', '').replace('.', '').replace(',', '').replace(':','')[0:2] + '/' + line.split(' ')[0].replace(';', '').replace('.', '').replace(',', '').replace(':','')[2:4],
+                                    'descricao': ' '.join(line.split(' ')[1:-1]),
+                                    'valor':float(line.split(' ')[-1].replace('-','').replace(',','.')),
+                                    'category': 'Não categorizado'
+                                })
+
                     else:
-                        context['transactions'].append({
-                            'data': line.split(' ')[0],
-                            'descricao': ' '.join(line.split(' ')[1:-2]),
-                            'valor': float(line.split(' ')[-1].replace('.', '').replace(',', '.').replace('-','')),
-                            'category': 'Não categorizado'
-                        })
+                        if line.split(' ')[-1].replace('-','')[0] == '.':
+                                context['transactions'].append({
+                                    'data': line.split(' ')[0],
+                                    'descricao': ' '.join(line.split(' ')[1:-2]),
+                                    'valor': float(line.split(' ')[-2]),
+                                    'category': 'Não categorizado'
+                                })
+                        else:
+                            if line.split(' ')[-1].replace('-','').replace(',','.').count('.') > 1 :
+                                context['transactions'].append({
+                                    'data': line.split(' ')[0],
+                                    'descricao': ' '.join(line.split(' ')[1:-2]),
+                                    'valor':float(line.split(' ')[-1].replace('-','').replace(',','.').replace('.','',1)),
+                                    'category': 'Não categorizado'
+                                })
+                            else:
+                                context['transactions'].append({
+                                    'data': line.split(' ')[0],
+                                    'descricao': ' '.join(line.split(' ')[1:-2]),
+                                    'valor': float(line.split(' ')[-1].replace('-','').replace(',','.')),
+                                    'category': 'Não categorizado'
+                                })
         for dicts in context['transactions']:
             print(dicts) 
         print(context['bank'])
