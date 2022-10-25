@@ -63,6 +63,7 @@ def orc(path):
         image_text = pytesseract.image_to_string(final_image, lang='por', config='--psm 6')
         context['text'] = image_text
         context['lines'] = image_text.splitlines()
+"""        
         if context['lines'][0].lower().find('itau'):
             context['bank'] = 'itau'
         elif context['lines'][0].lower().find('bradesco'):
@@ -86,6 +87,7 @@ def orc(path):
             elif line.lower().find('data') == -1 and line.lower().find('descricao') == -1 and line.lower().find('valor') == -1:
                 if line != '':
                     context['transactions'].append(line)
+"""
 
         print(context)
     #TODO: ORC - read file and create transactions
