@@ -116,8 +116,9 @@ def upload_transactions_file(request):
         doc_file=file, document_date=datetime.now())
     document.save()
     # TODO: ORC - read file and create transactions
-    '''
+    
     context = orc(document.doc_file.path)
-    transaction = Transaction.objects.create(description='teste', amount=100, date=datetime.now(), category='teste')
-    '''
+    transaction = Transaction.objects.create(description=context['transactions']['descricao'], amount=context['transactions']['valor'], date=context['transactions']['data'], category=context['transactions']['category'])
+    bank = Bank_Account.objects.create(bank_name=context['bank']['bank_name'],bank_code=context['bank']['bank_code'], account_number=context['account']['account_number'],acount_name=context['account']['account_name'])
+
     return Response({'response': 'ok'}, status=status.HTTP_200_OK)
