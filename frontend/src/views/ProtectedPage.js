@@ -32,8 +32,6 @@ function ProtectedPage() {
                 const response = await api.get("/transactions/");
                 const transacoes = response.data.response;
 
-                console.log(transacoes);
-
                 setTransactions(transacoes);
 
                 const datasFormatadas = FormatDate(transacoes);
@@ -58,7 +56,7 @@ function ProtectedPage() {
     const changeMesAnalizado = (mes) => {
         setMesAnalizado(mes);
 
-        const transacoesFiltradas = FilterMes([...transactions], mes);
+        const transacoesFiltradas = FilterMes([...transactions], mesAnalizado);
         // console.log(transacoesFiltradas);
         setTransactionsFiltradas(transacoesFiltradas);
     };
@@ -83,7 +81,7 @@ function ProtectedPage() {
                     meses={mesesTransacoes}
                     changeMesAnalizado={changeMesAnalizado}
                 />
-                <DashBoard />
+                <DashBoard transactionsFiltradas={transactionsFiltradas} />
 
                 <BotoesInserir adicionarTransacao={adicionarTransacao} />
 

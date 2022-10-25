@@ -42,10 +42,7 @@ export default function FilterMes(transacoes, data) {
             break;
     }
 
-    const x = transacoes.filter((transacao) => {
-        const mesTransacao = transacao.date.split("-")[1];
-        const anoTransacao = transacao.date.split("-")[0];
-
+    const transactionsFiltradas = transacoes.filter((transacao) => {
         return (
             transacao.date.split("-")[0] === ano.toString() &&
             // convert num mes to strinf
@@ -53,5 +50,29 @@ export default function FilterMes(transacoes, data) {
         );
     });
 
-    return x;
+    let novo = [...transactionsFiltradas].map((transacao) => {
+        return {
+            ...transacao,
+            date: new Date(transacao.date),
+        };
+    });
+
+    novo.sort((a, b) => a.date - b.date);
+
+    // change the date format to transactionsFiltradas. find by id an chanfe
+
+    const novoRetornado = novo.map((transacao) => {
+        for (let i = 0; i < transactionsFiltradas.length; i++) {
+            const transacaoFiltrada = transactionsFiltradas[i];
+
+            if (transacaoFiltrada.id === transacao.id) {
+                return {
+                    ...transacao,
+                    date: transacaoFiltrada.date,
+                };
+            }
+        }
+    });
+
+    return novoRetornado;
 }

@@ -2,7 +2,7 @@ import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function Cabecalho({ nome, meses, changeMesAnalizado }) {
-    const [mes, setMes] = useState("Escolha um mês");
+    const [mes, setMes] = useState("");
     useEffect(() => {
         if (meses) {
             setMes(meses[0]);
@@ -13,6 +13,7 @@ export default function Cabecalho({ nome, meses, changeMesAnalizado }) {
         setMes(event.target.value);
         changeMesAnalizado(event.target.value);
     };
+
     if (meses && nome) {
         return (
             <div className="div-cabecalho">
@@ -30,14 +31,18 @@ export default function Cabecalho({ nome, meses, changeMesAnalizado }) {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={mes}
+                            value={mes || ""}
                             label="Mes"
                             onChange={handleChange}
                         >
                             {meses.map((mes, id) => {
                                 return (
-                                    <MenuItem key={id} value={mes}>
-                                        {mes}
+                                    <MenuItem
+                                        key={id}
+                                        handleChange={handleChange}
+                                        value={mes || ""}
+                                    >
+                                        {mes || ""}
                                     </MenuItem>
                                 );
                             })}

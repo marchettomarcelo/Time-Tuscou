@@ -54,7 +54,7 @@ export const data = {
     datasets: [
         {
             label: "Dataset 1",
-            data: [1, 2, 3, 4, 5, 6, 70],
+            data: [1, 2, 30, 4, 5, 6, 70],
             borderColor: "rgb(0, 0, 0)",
             backgroundColor: "rgb(0, 0, 0)",
         },
