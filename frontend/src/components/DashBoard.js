@@ -30,8 +30,6 @@ export default function DashBoard({ transactionsFiltradas }) {
                 <p>R$ {mediaReceitas}</p>
                 <h2 className="infos-principais">Gasto do mes:</h2>
                 <p>R$ {totalReceitas}</p>
-                {/* <h2 className="infos-principais">Dias restantes:</h2>
-                <p> 27</p> */}
             </div>
 
             <div className="div-dentro-dashboard">
