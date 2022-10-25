@@ -65,26 +65,55 @@ def testEndPoint(request):
         return Response({'response': data}, status=status.HTTP_200_OK)
     return Response({}, status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
+
+@api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])
 def upload_transactions_info(request):
+
+    print("Bom dia")
+
     if request.method == 'POST':
-        description = request.POST.get('description')
-        amount = request.POST.get('value')
-        date = request.POST.get('date')
-        category = request.POST.get('category')
-        user = request.POST.get('user')
-        category = Category.objects.get(name=category)
-    transaction = Transaction.objects.create(user=user, description=description, amount=amount, date=date, category=category)
-    transaction.save()
-    return Response({'response': 'success'}, status=status.HTTP_200_OK)
+
+        description = request.data.get('description')
+        amount = request.data.get('amount')
+        date = request.data.get('date')
+        category = request.data.get('category')
+
+        user_id = request.user.id
+        user = User.objects.get(id=user_id)
+
+        category = Category.objects.create(name=category)
+        category.save()
+
+        new_transaction = Transaction.objects.create(
+            user=user, description=description, amount=amount, date=date, category=category)
+        new_transaction.save()
+        # 201 status code means created
+        return Response({'response': 'success'}, status=status.HTTP_201_CREATED)
+
+    if request.method == 'GET':
+        user_id = request.user.id
+        user = User.objects.get(id=user_id)
+        transactions = Transaction.objects.filter(user=user)
+        data = []
+        for transaction in transactions:
+            data.append({
+                'id': transaction.id,
+                'description': transaction.description,
+                'amount': transaction.amount,
+                'date': transaction.date,
+                'category': transaction.category.name
+            })
+        return Response({'response': data}, status=status.HTTP_200_OK)
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def upload_transactions_file(request):
     if request.method == 'POST':
         file = request.FILES.get('file')
-    document = Document.objects.create(doc_file=file, document_date=datetime.now())
+    document = Document.objects.create(
+        doc_file=file, document_date=datetime.now())
     document.save()
     # TODO: ORC - read file and create transactions
     '''

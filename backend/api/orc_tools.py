@@ -93,5 +93,3 @@ def orc(path):
     #TODO: ORC - read file and create transactions
 
     return context
-
-orc('../../static/media/extrato/extrato_itau.jpeg')

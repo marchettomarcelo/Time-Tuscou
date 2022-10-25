@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 
-export default function Cabecalho({ nome, meses }) {
+export default function Cabecalho({ nome, meses, changeMesAnalizado }) {
     const [mes, setMes] = useState("Escolha um mês");
     useEffect(() => {
         if (meses) {
@@ -11,6 +11,7 @@ export default function Cabecalho({ nome, meses }) {
 
     const handleChange = (event) => {
         setMes(event.target.value);
+        changeMesAnalizado(event.target.value);
     };
     if (meses && nome) {
         return (
