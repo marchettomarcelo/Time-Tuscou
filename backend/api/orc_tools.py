@@ -63,18 +63,44 @@ def orc(path):
         image_text = pytesseract.image_to_string(final_image, lang='por', config='--psm 6')
         context['text'] = image_text
         context['lines'] = image_text.splitlines()
-   
+        # print(context['lines'][1].split(' ')[-1])
+        
         if context['lines'][0].lower().find('itau'):
-            context['bank'] = 'itau'
+            context['bank'] = {
+                'bank_name': 'Itaú',
+                'bank_code': '341'
+            }
+            context['account'] = {
+                'account_number': context['lines'][4].split(' ')[-1].replace('.', '').replace(',', '.'),
+                'account_name': context['lines'][3].lower().replace('nome:','').strip()
+        }
         elif context['lines'][0].lower().find('bradesco'):
-            context['bank'] = 'bradesco'
+            context['bank'] = {
+                'bank_name': 'Bradesco',
+                'bank_code': '237'
+            }
         elif context['lines'][0].lower().find('banco do brasil'):
-            context['bank'] = 'banco do brasil'
-        elif context['lines'][0].lower().find('santander'):
-            context['bank'] = 'santander'
-        elif context['lines'][0].lower().find('caixa'):
-            context['bank'] = 'caixa'
+            context['bank'] = {
+                'bank_name': 'Banco do Brasil',
+                'bank_code': '001'
+            }
 
+        elif context['lines'][0].lower().find('santander'):
+            context['bank'] = {
+                'bank_name': 'Santander',
+                'bank_code': '033'
+            }
+        elif context['lines'][0].lower().find('caixa'):
+            context['bank'] = {
+                'bank_name': 'Caixa',
+                'bank_code': '104'
+            }
+        elif context['lines'][0].lower().find('nubank'):
+            context['bank'] = {
+                'bank_name': 'Nubank',
+                'bank_code': '260'
+            }
+        
         context['transactions'] = []
         for line in context['lines']:
 
@@ -90,29 +116,31 @@ def orc(path):
                 context['header'] = line
             elif line.lower().find('data') == -1 and line.lower().find('descricao') == -1 and line.lower().find('valor') == -1:
                 if line != '' and line.lower().find('nome') == -1 and line.lower().find('agência') == -1 and line.lower().find('extrato') == -1 and line.lower().find('saldo') == -1:
-                    context['transactions'].append(line)
-                    if context['bank'] == 'itau':
-                        if context['transactions'][-1].split(' ')[0].find('/') == -1:
-                            context['transactions'][-1] = {
-                                'data': context['transactions'][-1].split(' ')[0].replace(';', '').replace('.', '').replace(',', '').replace(':','')[0:2] + '/' + context['transactions'][-1].split(' ')[0].replace(';', '').replace('.', '').replace(',', '').replace(':','')[2:4],
-                                'descricao': ' '.join(context['transactions'][-1].split(' ')[1:-1]),
-                                'valor': float(context['transactions'][-1].split(' ')[-1].replace('.', '').replace(',', '.').replace('-',''))
-                            }
-                        else:
-                            context['transactions'][-1] = {
-                                'data': context['transactions'][-1].split(' ')[0],
-                                'descricao': ' '.join(context['transactions'][-1].split(' ')[1:-2]),
-                                'valor': float(context['transactions'][-1].split(' ')[-1].replace('.', '').replace(',', '.').replace('-',''))
-                            }
-                    for dicts in context['transactions']:
-                        print(dicts)
-
                     
-            
-                
+                    if line.split(' ')[0].find('/') == -1:
+                        context['transactions'].append({
+                            'data': line.split(' ')[0].replace(';', '').replace('.', '').replace(',', '').replace(':','')[0:2] + '/' + line.split(' ')[0].replace(';', '').replace('.', '').replace(',', '').replace(':','')[2:4],
+                            'descricao': ' '.join(line.split(' ')[1:-1]),
+                            'valor': float(line.split(' ')[-1].replace('.', '').replace(',', '.').replace('-','')),
+                            'category': 'Não categorizado'
+                        })
+                    else:
+                        context['transactions'].append({
+                            'data': line.split(' ')[0],
+                            'descricao': ' '.join(line.split(' ')[1:-2]),
+                            'valor': float(line.split(' ')[-1].replace('.', '').replace(',', '.').replace('-','')),
+                            'category': 'Não categorizado'
+                        })
+        for dicts in context['transactions']:
+            print(dicts) 
+        print(context['bank'])
+        print(context['account'])
+        
+                    
+                    
     #TODO: ORC - read file and create transactions
 
-    return context
+    # return context['transactions'], context['bank'], context['account']
 
 if __name__ == '__main__':
     orc('../../static/media/extrato/extrato_itau.jpeg')
