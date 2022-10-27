@@ -26,6 +26,25 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
 
 
+@api_view(['POST'])
+def createProfile(request):
+
+    print(request.user)
+
+    data = request.data
+    user = User.objects.get(username=data['username'])
+    user.profile.name = data['username']
+    user.profile.email = data['email']
+
+    user.profile.birth_date = data['birth_date']
+
+    user.profile.phone = data['phone']
+    user.profile.cpf = data['cpf']
+    user.profile.save()
+
+    return Response(status=status.HTTP_200_OK)
+
+
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
@@ -37,8 +56,8 @@ def getRoutes(request):
     return Response(routes)
 
 
+# @permission_classes([IsAuthenticated])
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
 def testEndPoint(request):
     if request.method == 'GET':
 
@@ -120,4 +139,9 @@ def upload_transactions_file(request):
     context = orc(document.doc_file.path)
     transaction = Transaction.objects.create(description='teste', amount=100, date=datetime.now(), category='teste')
     '''
+    return Response({'response': 'ok'}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def teste(request):
     return Response({'response': 'ok'}, status=status.HTTP_200_OK)

@@ -33,7 +33,7 @@ export default function DashBoard({ transactionsFiltradas }) {
             </div>
 
             <div className="div-dentro-dashboard">
-                <Grafico />
+                <Grafico transactionsFiltradas={transactionsFiltradas} />
             </div>
         </div>
     );

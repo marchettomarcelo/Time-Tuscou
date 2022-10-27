@@ -36,14 +36,13 @@ function ProtectedPage() {
 
                 const datasFormatadas = FormatDate(transacoes);
 
-                console.log(datasFormatadas);
                 setMesesTransacoes(datasFormatadas);
 
                 const transacoesFiltradas = FilterMes(
                     transacoes,
                     datasFormatadas[0]
                 );
-                console.log(transacoesFiltradas);
+
                 setTransactionsFiltradas(transacoesFiltradas);
             } catch {
                 alert("Something went wrong");
@@ -57,7 +56,7 @@ function ProtectedPage() {
         setMesAnalizado(mes);
 
         const transacoesFiltradas = FilterMes([...transactions], mesAnalizado);
-        // console.log(transacoesFiltradas);
+        console.log(transactions);
         setTransactionsFiltradas(transacoesFiltradas);
     };
 

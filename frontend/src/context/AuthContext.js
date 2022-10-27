@@ -2,94 +2,115 @@ import { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 
+import axios from "axios";
+
 const AuthContext = createContext();
 
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-  const [authTokens, setAuthTokens] = useState(() =>
-    localStorage.getItem("authTokens")
-      ? JSON.parse(localStorage.getItem("authTokens"))
-      : null
-  );
-  const [user, setUser] = useState(() =>
-    localStorage.getItem("authTokens")
-      ? jwt_decode(localStorage.getItem("authTokens"))
-      : null
-  );
-  const [loading, setLoading] = useState(true);
+    const [authTokens, setAuthTokens] = useState(() =>
+        localStorage.getItem("authTokens")
+            ? JSON.parse(localStorage.getItem("authTokens"))
+            : null
+    );
+    const [user, setUser] = useState(() =>
+        localStorage.getItem("authTokens")
+            ? jwt_decode(localStorage.getItem("authTokens"))
+            : null
+    );
+    const [loading, setLoading] = useState(true);
 
-  const history = useHistory();
+    const history = useHistory();
 
-  const loginUser = async (username, password) => {
-    const response = await fetch("http://127.0.0.1:8000/api/token/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username,
-        password
-      })
-    });
-    const data = await response.json();
+    const loginUser = async (username, password) => {
+        const response = await fetch("http://127.0.0.1:8000/api/token/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username,
+                password,
+            }),
+        });
+        const data = await response.json();
 
-    if (response.status === 200) {
-      setAuthTokens(data);
-      setUser(jwt_decode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-      history.push("/");
-    } else {
-      alert("Something went wrong!");
-    }
-  };
+        if (response.status === 200) {
+            setAuthTokens(data);
+            setUser(jwt_decode(data.access));
+            localStorage.setItem("authTokens", JSON.stringify(data));
+            history.push("/");
+        } else {
+            alert("Something went wrong!");
+        }
+    };
 
-  const registerUser = async (username, password, password2) => {
-    const response = await fetch("http://127.0.0.1:8000/api/register/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username,
+    const registerUser = async (
+        email,
         password,
-        password2
-      })
-    });
-    if (response.status === 201) {
-      history.push("/login");
-    } else {
-      alert("Something went wrong!");
-    }
-  };
+        password2,
+        username,
+        birth_date,
+        phone,
+        cpf
+    ) => {
+        const response = await fetch("http://127.0.0.1:8000/api/register/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username,
+                password,
+                password2,
+            }),
+        });
+        if (response.status === 201) {
+            const profile = await axios.post(
+                "http://127.0.0.1:8000/api/profile/",
+                {
+                    username,
+                    email,
+                    birth_date,
+                    phone,
+                    cpf,
+                }
+            );
 
-  const logoutUser = () => {
-    setAuthTokens(null);
-    setUser(null);
-    localStorage.removeItem("authTokens");
-    history.push("/");
-  };
+            history.push("/login");
+        } else {
+            alert("Something went wrong!");
+        }
+    };
 
-  const contextData = {
-    user,
-    setUser,
-    authTokens,
-    setAuthTokens,
-    registerUser,
-    loginUser,
-    logoutUser
-  };
+    const logoutUser = () => {
+        setAuthTokens(null);
+        setUser(null);
+        localStorage.removeItem("authTokens");
+        history.push("/");
+    };
 
-  useEffect(() => {
-    if (authTokens) {
-      setUser(jwt_decode(authTokens.access));
-    }
-    setLoading(false);
-  }, [authTokens, loading]);
+    const contextData = {
+        user,
+        setUser,
+        authTokens,
+        setAuthTokens,
+        registerUser,
+        loginUser,
+        logoutUser,
+    };
 
-  return (
-    <AuthContext.Provider value={contextData}>
-      {loading ? null : children}
-    </AuthContext.Provider>
-  );
+    useEffect(() => {
+        if (authTokens) {
+            setUser(jwt_decode(authTokens.access));
+        }
+        setLoading(false);
+    }, [authTokens, loading]);
+
+    return (
+        <AuthContext.Provider value={contextData}>
+            {loading ? null : children}
+        </AuthContext.Provider>
+    );
 };
