@@ -32,20 +32,17 @@ function ProtectedPage() {
                 const response = await api.get("/transactions/");
                 const transacoes = response.data.response;
 
-                console.log(transacoes);
-
                 setTransactions(transacoes);
 
                 const datasFormatadas = FormatDate(transacoes);
 
-                console.log(datasFormatadas);
                 setMesesTransacoes(datasFormatadas);
 
                 const transacoesFiltradas = FilterMes(
                     transacoes,
                     datasFormatadas[0]
                 );
-                console.log(transacoesFiltradas);
+
                 setTransactionsFiltradas(transacoesFiltradas);
             } catch {
                 alert("Something went wrong");
@@ -58,8 +55,8 @@ function ProtectedPage() {
     const changeMesAnalizado = (mes) => {
         setMesAnalizado(mes);
 
-        const transacoesFiltradas = FilterMes([...transactions], mes);
-        // console.log(transacoesFiltradas);
+        const transacoesFiltradas = FilterMes([...transactions], mesAnalizado);
+        console.log(transactions);
         setTransactionsFiltradas(transacoesFiltradas);
     };
 
@@ -83,7 +80,7 @@ function ProtectedPage() {
                     meses={mesesTransacoes}
                     changeMesAnalizado={changeMesAnalizado}
                 />
-                <DashBoard />
+                <DashBoard transactionsFiltradas={transactionsFiltradas} />
 
                 <BotoesInserir adicionarTransacao={adicionarTransacao} />
 

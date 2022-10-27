@@ -1,28 +1,20 @@
 from django.db import models
-
-# Create your models here.
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Profile(models.Model):
-    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     email = models.EmailField()
-    birth_date = models.DateField()
-    phone = models.CharField(max_length=20)
-    cpf = models.CharField(max_length=11)
-
-
-class Bank_Account(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    bank_name = models.CharField(max_length=100)
-    bank_code = models.CharField(max_length=100)
-    account_number = models.CharField(max_length=100)
-    account_name = models.CharField(max_length=100)
+    birth_date = models.DateField(null=True, blank=True)
+    phone = models.CharField(max_length=20, null=True, blank=True)
+    cpf = models.CharField(max_length=11, null=True, blank=True)
 
 
 class Document(models.Model):
-    account = models.ForeignKey(
-        Bank_Account, on_delete=models.CASCADE, default=None)
+
     doc_file = models.FileField(upload_to='documents/%Y/%m/%d')
     document_date = models.DateField()
     total_amount = models.CharField(max_length=100, default=0)
@@ -42,7 +34,7 @@ class Category(models.Model):
 
 
 class Transaction(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # document is not required
     document = models.ForeignKey(
@@ -55,3 +47,9 @@ class Transaction(models.Model):
     def __str__(self):
 
         return f'{self.description} - R${self.amount} - {self.date}'
+
+
+@receiver(post_save, sender=User)
+def create_user_Perfil(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)

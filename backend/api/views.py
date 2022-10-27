@@ -11,7 +11,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from .models import *
 from datetime import datetime
-from .orc_tools import *
+# from .orc_tools import *
 
 # Create your views here.
 
@@ -26,6 +26,25 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
 
 
+@api_view(['POST'])
+def createProfile(request):
+
+    print(request.user)
+
+    data = request.data
+    user = User.objects.get(username=data['username'])
+    user.profile.name = data['username']
+    user.profile.email = data['email']
+
+    user.profile.birth_date = data['birth_date']
+
+    user.profile.phone = data['phone']
+    user.profile.cpf = data['cpf']
+    user.profile.save()
+
+    return Response(status=status.HTTP_200_OK)
+
+
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
@@ -37,8 +56,8 @@ def getRoutes(request):
     return Response(routes)
 
 
+# @permission_classes([IsAuthenticated])
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
 def testEndPoint(request):
     if request.method == 'GET':
 
@@ -115,7 +134,6 @@ def upload_transactions_file(request):
     document = Document.objects.create(
         doc_file=file, document_date=datetime.now())
     document.save()
-    # TODO: ORC - read file and create transactions
     
     context = orc(document.doc_file.path)
     transaction = Transaction.objects.create(
@@ -135,3 +153,8 @@ def upload_transactions_file(request):
 
 
     return Response({'response': data}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def teste(request):
+    return Response({'response': 'ok'}, status=status.HTTP_200_OK)

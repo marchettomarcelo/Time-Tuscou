@@ -4,12 +4,34 @@ import { TextField, Button } from "@mui/material";
 
 function Register() {
     const [email, setEmail] = useState("");
+
+    const [nome, setNome] = useState("");
+    const [aniversario, setAniversario] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [cpf, setCpf] = useState("");
+
     const [senha, setSenha] = useState("");
     const [senha2, setSenha2] = useState("");
     const { registerUser } = useContext(AuthContext);
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
+    };
+
+    const handleNomeChange = (e) => {
+        setNome(e.target.value);
+    };
+
+    const handleAniversarioChange = (e) => {
+        setAniversario(e.target.value);
+    };
+
+    const handleTelefoneChange = (e) => {
+        setTelefone(e.target.value);
+    };
+
+    const handleCpfChange = (e) => {
+        setCpf(e.target.value);
     };
 
     const handleSenhaChange = (e) => {
@@ -21,8 +43,14 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        registerUser(email, senha, senha2);
+        registerUser(email, senha, senha2, nome, aniversario, telefone, cpf);
     };
+
+    // name,
+    //     email,
+    //     birth_date,
+    //     phone,
+    //     cpf
 
     return (
         <form className="login-form" onSubmit={handleSubmit}>
@@ -31,11 +59,53 @@ function Register() {
             <TextField
                 placeholder="Insira seu email"
                 id="standard-basic"
-                label="Username"
+                label="Email"
                 variant="standard"
                 value={email}
                 required
                 onChange={handleEmailChange}
+                fullWidth
+            />
+            <TextField
+                placeholder="Insira seu nome"
+                id="standard-basic"
+                label="Nome"
+                variant="standard"
+                value={nome}
+                required
+                onChange={handleNomeChange}
+                fullWidth
+            />
+            <TextField
+                placeholder="Insira sua data de nascimento"
+                id="standard-basic"
+                // label="Data de nascimento"
+                variant="standard"
+                type="date"
+                value={aniversario}
+                required
+                onChange={handleAniversarioChange}
+                fullWidth
+            />
+
+            <TextField
+                placeholder="Insira seu telefone"
+                id="standard-basic"
+                label="Telefone"
+                variant="standard"
+                value={telefone}
+                required
+                onChange={handleTelefoneChange}
+                fullWidth
+            />
+            <TextField
+                placeholder="Insira seu cpf"
+                id="standard-basic"
+                label="CPF"
+                variant="standard"
+                value={cpf}
+                required
+                onChange={handleCpfChange}
                 fullWidth
             />
 
