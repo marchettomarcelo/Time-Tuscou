@@ -134,12 +134,25 @@ def upload_transactions_file(request):
     document = Document.objects.create(
         doc_file=file, document_date=datetime.now())
     document.save()
-    # TODO: ORC - read file and create transactions
-    '''
+    
     context = orc(document.doc_file.path)
-    transaction = Transaction.objects.create(description='teste', amount=100, date=datetime.now(), category='teste')
-    '''
-    return Response({'response': 'ok'}, status=status.HTTP_200_OK)
+    transaction = Transaction.objects.create(
+        description=context['transactions']['descricao'], amount=context['transactions']['valor'], date=context['transactions']['data'], category=context['transactions']['category'])
+    transaction.save()
+    bank = Bank_Account.objects.create(
+        bank_name=context['bank']['bank_name'],bank_code=context['bank']['bank_code'], account_number=context['account']['account_number'],acount_name=context['account']['account_name'])
+    bank.save()
+    data = []
+    data.append({
+        'id': transaction.id,
+        'description': context['transactions']['descricao'],
+        'amount': context['transactions']['valor'],
+        'date': context['transactions']['data'],
+        'category': context['transactions']['category']
+    })
+
+
+    return Response({'response': data}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])

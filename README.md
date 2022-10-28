@@ -6,6 +6,10 @@
 - <a href="https://github.com/st4pzz">Sergio Ramella</a>
 - <a href="https://github.com/thomaschiari">Thomas Chiari</a>
 
+## Repositórios adicionais:
+- Back-End completo em Django Rest: <a href="https://github.com/thomaschiari/back-end-transactions-projagil">Acesse aqui</a>.
+- Web Service Flask Restful (complemento Back-End): <a href="https://github.com/thomaschiari/web-service-transactions">Acesse aqui</a>.
+
 ## Qual dor pretendemos atacar?
 
 Pessoas não conseguem gerir bem suas finanças pessoais. Isso se dá tanto por falta de conhecimento quanto por falta de tempo.
