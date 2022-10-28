@@ -15,14 +15,10 @@ function ProtectedPage() {
     const [mesesTransacoes, setMesesTransacoes] = useState([]);
     const [mesAnalizado, setMesAnalizado] = useState("JAN/2021");
     const [transactions, setTransactions] = useState("");
-    const [transactionsFiltradas, setTransactionsFiltradas] = useState("");
+    const [transactionsFiltradas, setTransactionsFiltradas] = useState([]);
     const api = useAxios();
     const { logoutUser } = useContext(AuthContext);
     const { userProfile } = useContext(ProfileContext);
-
-    if (userProfile) {
-        console.log(userProfile);
-    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -58,12 +54,15 @@ function ProtectedPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const changeMesAnalizado = (mes) => {
-        setMesAnalizado(mes);
-
-        const transacoesFiltradas = FilterMes([...transactions], mesAnalizado);
+    const changeMesAnalizado = async (mes) => {
+        const transacoesFiltradas = FilterMes([...transactions], mes);
         console.log(transactions);
+
         setTransactionsFiltradas(transacoesFiltradas);
+
+        setMesAnalizado(mes);
+        console.log("asjodncasdnclasdjcalksjdnclakjsndckjnasdlkjcnajsdcljkasd");
+        console.log(transactionsFiltradas);
     };
 
     const adicionarTransacao = async (novaTransacao) => {

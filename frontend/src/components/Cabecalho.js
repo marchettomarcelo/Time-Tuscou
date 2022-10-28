@@ -38,8 +38,8 @@ export default function Cabecalho({ nome, meses, changeMesAnalizado }) {
                             {meses.map((mes, id) => {
                                 return (
                                     <MenuItem
-                                        key={id}
-                                        handleChange={handleChange}
+                                        key={Math.random() * id}
+                                        onChange={handleChange}
                                         value={mes || ""}
                                     >
                                         {mes || ""}

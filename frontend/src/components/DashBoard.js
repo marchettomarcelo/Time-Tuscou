@@ -18,9 +18,6 @@ export default function DashBoard({ transactionsFiltradas }) {
 
     novo.sort((a, b) => a.date - b.date);
 
-    // [ 'Test 2', 'Test 1', 'Test 3' ]
-    console.log(novo);
-
     const mediaReceitas = (totalReceitas / nTransacoes).toFixed(2);
 
     return (

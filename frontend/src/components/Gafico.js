@@ -72,16 +72,18 @@ export default function Gafico({ transactionsFiltradas }) {
         let novo = { ...data };
 
         let novoy = [];
+        let novox = [];
         let acumulado = 0;
 
         for (let i = 0; i < transactionsFiltradas.length; i++) {
             acumulado += parseFloat(transactionsFiltradas[i].amount);
+
             novoy.push(acumulado);
+            novox.push(transactionsFiltradas[i].date.split("-")[2]);
         }
 
         novo.datasets[0].data = novoy;
-
-        console.log("novo", novo);
+        novo.labels = novox;
 
         setData(novo);
     }, [transactionsFiltradas]);

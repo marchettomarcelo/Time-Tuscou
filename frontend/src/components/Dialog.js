@@ -54,10 +54,10 @@ export default function DialogForm({ open, handleClose, adicionarTransacao }) {
         >
             <DialogTitle>Insira as informações de uma transação</DialogTitle>
             <DialogContent style={{ gap: "1rem" }}>
-                <DialogContentText>
+                {/* <DialogContentText>
                     To subscribe to this website, please enter your email
                     address here. We will send updates occasionally.
-                </DialogContentText>
+                </DialogContentText> */}
                 <TextField
                     autoFocus
                     margin="dense"
