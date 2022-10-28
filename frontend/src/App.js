@@ -5,6 +5,9 @@ import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
+
+import { ProfileProvider } from "./context/ProfileContext";
+
 import Home from "./views/homePage";
 import Login from "./views/loginPage";
 import Register from "./views/registerPage";
@@ -15,17 +18,18 @@ function App() {
         <Router>
             <main>
                 <AuthProvider>
-                    {/* <Navbar /> */}
-                    <Switch>
-                        <PrivateRoute
-                            component={ProtectedPage}
-                            path="/protected"
-                            exact
-                        />
-                        <Route component={Login} path="/login" />
-                        <Route component={Register} path="/cadastro" />
-                        <Route component={Home} path="/" />
-                    </Switch>
+                    <ProfileProvider>
+                        <Switch>
+                            <PrivateRoute
+                                component={ProtectedPage}
+                                path="/protected"
+                                exact
+                            />
+                            <Route component={Login} path="/login" />
+                            <Route component={Register} path="/cadastro" />
+                            <Route component={Home} path="/" />
+                        </Switch>
+                    </ProfileProvider>
                 </AuthProvider>
                 {/* <Footer /> */}
             </main>

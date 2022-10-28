@@ -1,6 +1,4 @@
 export default function FilterMes(transacoes, data) {
-    console.log(transacoes, data);
-
     const mes = data.split("/")[0];
     const ano = data.split("/")[1];
 
@@ -45,8 +43,6 @@ export default function FilterMes(transacoes, data) {
     }
 
     const transactionsFiltradas = transacoes.filter((transacao) => {
-        console.log(transacao.date.split("-")[0], ano.toString());
-        console.log(transacao.date.split("-")[1], numMes.toString());
         return (
             transacao.date.split("-")[0] === ano.toString() &&
             // convert num mes to strinf

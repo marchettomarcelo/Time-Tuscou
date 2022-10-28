@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -21,7 +21,7 @@ ChartJS.register(
     Legend
 );
 
-export const options = {
+const options = {
     // maintainAspectRatio: false,
     aspectRatio: 1,
     // responsive: true,
@@ -47,30 +47,53 @@ export const options = {
     },
 };
 
+const labels = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+];
+
 export default function Gafico({ transactionsFiltradas }) {
-    let acumulado = 0;
-    const dias = [];
-    const gastos = [];
-
-    for (let i = 0; i < transactionsFiltradas; i++) {
-        const transacao = transactionsFiltradas[i];
-        dias.push(transacao.date.split("-")[2]);
-        acumulado += parseFloat(transacao.amount);
-        gastos.push(acumulado);
-    }
-
-    const labels = dias;
-
-    const data = {
-        labels,
+    const [data, setData] = React.useState({
+        labels: [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+            20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+        ],
         datasets: [
             {
                 label: "Dataset 1",
-                data: [...gastos],
+                data: [1, 2, 30, 4, 5, 6, 70],
                 borderColor: "rgb(0, 0, 0)",
                 backgroundColor: "rgb(0, 0, 0)",
             },
         ],
-    };
-    return <Line options={options} data={data} height={null} width={null} />;
+    });
+
+    useEffect(() => {
+        let novo = { ...data };
+
+        let novoy = [];
+        let acumulado = 0;
+
+        for (let i = 0; i < transactionsFiltradas.length; i++) {
+            acumulado += parseFloat(transactionsFiltradas[i].amount);
+            novoy.push(acumulado);
+        }
+
+        novo.datasets[0].data = novoy;
+
+        console.log("novo", novo);
+
+        setData(novo);
+    }, [transactionsFiltradas]);
+
+    return (
+        <Line
+            options={options}
+            data={data}
+            height={null}
+            width={null}
+            // redraw={true}
+            key={Math.random()}
+        />
+    );
 }

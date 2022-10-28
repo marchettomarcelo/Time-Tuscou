@@ -3,6 +3,7 @@ import useAxios from "../utils/useAxios";
 import FilterMes from "../utils/FilterMes";
 import FormatDate from "../utils/FormatDate";
 import AuthContext from "../context/AuthContext";
+import ProfileContext from "../context/ProfileContext";
 import Cabecalho from "../components/Cabecalho";
 import DashBoard from "../components/DashBoard";
 import BotoesInserir from "../components/BotoesInserir";
@@ -17,6 +18,11 @@ function ProtectedPage() {
     const [transactionsFiltradas, setTransactionsFiltradas] = useState("");
     const api = useAxios();
     const { logoutUser } = useContext(AuthContext);
+    const { userProfile } = useContext(ProfileContext);
+
+    if (userProfile) {
+        console.log(userProfile);
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,7 +51,7 @@ function ProtectedPage() {
 
                 setTransactionsFiltradas(transacoesFiltradas);
             } catch {
-                alert("Something went wrong");
+                // alert("Something went wrong");
             }
         };
         fetchData();
@@ -67,16 +73,32 @@ function ProtectedPage() {
         if (response.status === 201) {
             // append novaTransacao a transactions
             setTransactions([...transactions, novaTransacao]);
+            window.location.reload();
         } else {
             alert("Erro ao adicionar transação");
         }
     };
 
-    if (res && transactions && mesesTransacoes) {
+    const clickEdit = async (id) => {
+        // make delete request
+        console.log(id);
+
+        const response = await api.delete(`/transactions/${id}`);
+        if (response.status === 200) {
+            const transacoesFiltradas = transactions.filter(
+                (transacao) => transacao.id !== id
+            );
+            setTransactions(transacoesFiltradas);
+            // reload page
+            window.location.reload();
+        }
+    };
+
+    if (res && transactions && mesesTransacoes && userProfile) {
         return (
             <div className="div-main-page">
                 <Cabecalho
-                    nome={res.nome}
+                    nome={userProfile.name}
                     meses={mesesTransacoes}
                     changeMesAnalizado={changeMesAnalizado}
                 />
@@ -87,12 +109,13 @@ function ProtectedPage() {
                 {[...transactionsFiltradas].map((transacao, id) => {
                     return (
                         <RegistroTransacao
-                            key={id}
+                            key={Math.random()}
                             id={transacao.id}
                             amount={transacao.amount}
                             date={transacao.date}
                             description={transacao.description}
                             category={transacao.category}
+                            clickEdit={clickEdit}
                         />
                     );
                 })}

@@ -1,44 +1,44 @@
-// import { createContext, useContext, useState, useEffect } from "react";
-// import AuthContext from "./AuthContext";
-// import useAxios from "../utils/useAxios";
+import { createContext, useContext, useState, useEffect } from "react";
+import AuthContext from "./AuthContext";
+import useAxios from "../utils/useAxios";
 
-// const ProfileContext = createContext();
+const ProfileContext = createContext();
 
-// export default ProfileContext;
+export default ProfileContext;
 
-// export const ProfileProvider = ({ children }) => {
-//     const [userProfile, setUserProfile] = useState(null);
+export const ProfileProvider = ({ children }) => {
+    const [userProfile, setUserProfile] = useState(null);
 
-//     const { user } = useContext(AuthContext);
-//     const [currentUser, setCurrentUser] = useState(null);
+    const { user } = useContext(AuthContext);
+    const [currentUser, setCurrentUser] = useState(null);
 
-//     const api = useAxios();
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             try {
-//                 const response = await api.get(`/username/${user.user_id}`);
-//                 const x = response.data.response.perfil;
+    const api = useAxios();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await api.get(`/profile/${user.user_id}`);
+                const x = response.data.response.perfil;
 
-//                 setUserProfile(x);
-//             } catch (e) {
-//                 console.log(e);
-//             }
-//         };
-//         if (user) {
-//             if (currentUser !== user) {
-//                 setCurrentUser(user);
-//                 fetchData();
-//             }
-//         }
-//     }, [user, currentUser, api]);
+                setUserProfile(x);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        if (user) {
+            if (currentUser !== user) {
+                setCurrentUser(user);
+                fetchData();
+            }
+        }
+    }, [user, currentUser, api]);
 
-//     const contextData = {
-//         userProfile,
-//     };
+    const contextData = {
+        userProfile,
+    };
 
-//     return (
-//         <ProfileContext.Provider value={contextData}>
-//             {children}
-//         </ProfileContext.Provider>
-//     );
-// };
+    return (
+        <ProfileContext.Provider value={contextData}>
+            {children}
+        </ProfileContext.Provider>
+    );
+};
