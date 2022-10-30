@@ -63,10 +63,16 @@ def orc(path):
         # Fazendo um stack de imagens, para que o OCR consiga ler como um único jpg
         vertical_stack = np.vstack((np.asarray(img.resize(lower_bound)) for img in list_img))
         vertical_stack = Image.fromarray(vertical_stack)
-        vertical_stack.save('static/media/extrato/extrato_convertido.jpg' )
+        if path.endswith('itau.pdf'):
+            vertical_stack.save('../../static/media/extrato/extrato_itau.jpeg')
+        else: vertical_stack.save('../../static/media/extrato/extrato_convertido.jpg')
         ## Extrato salvo no static, preparado para ser processado pelo pytesseract
         ## A partir daqui, o repartiria para o código que está escrito no else abaixo, só que o filename mudaria para o salvado acima
-    else:   
+
+    if not path.endswith('.pdf') or path.endswith('extrato_itau.pdf'):  
+        # Utilizando extrato_itau como exemplo, se o cliente mandou o extrato pdf,
+        # o conversor de pdf acima é executado, depois o código abaixo
+        path = '../../static/media/extrato/extrato_itau.jpeg'
         final_image = process_image_for_ocr(path)
         pytesseract.pytesseract.tesseract_cmd = r'/usr/local/bin/tesseract'
         context = {}
@@ -175,10 +181,6 @@ def orc(path):
                                     'valor': float(line.split(' ')[-1].replace('-','').replace(',','.')),
                                     'category': 'Não categorizado'
                                 })
-        for dicts in context['transactions']:
-            print(dicts) 
-        print(context['bank'])
-        print(context['account'])
         
                     
                     
@@ -187,7 +189,7 @@ def orc(path):
     # return context['transactions'], context['bank'], context['account']
 
 if __name__ == '__main__':
-    orc('static/media/extrato/extrato_itau.jpg')
+    orc('../../static/media/extrato/extrato_itau.jpg')
 
 # imagem = orc('../static/media/extrato/extrato_itau.jpeg')
 # print(imagem)
