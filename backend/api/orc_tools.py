@@ -1,6 +1,6 @@
 import pytesseract
 from PIL import Image
-from pdf2image import convert_from_path
+from pdf2image import *
 import tempfile
 import cv2
 import numpy as np
@@ -48,14 +48,24 @@ def remove_noise_and_smooth(file_name):
     return or_image
 
 
-def treat_pdf(pdf_path, path_to_save):
-    images = convert_from_path(pdf_path, dpi=300, output_folder=path_to_save)
+def treat_pdf(pdf_path):
+    images = convert_from_path(pdf_path, dpi=300)
     return images
 
 def orc(path):
     if path.endswith('.pdf'):
-        images = treat_pdf(path, path_to_save='../static/media/extrato/')
+        ## Exemplo de conversão de pdf para imagem que usariamos se implementassemos o upload de pdf
+                # Para esta implementação funcionar, é preciso a instalação da livraria poppler
+                # Um guia de instalação pode ser encontrado em https://pdf2image.readthedocs.io/en/latest/installation.html
+        images = treat_pdf(path)
         list_img = [img for img in images]
+        lower_bound = sorted([(np.sum(img.size), img.size) for img in list_img])[0][1]
+        # Fazendo um stack de imagens, para que o OCR consiga ler como um único jpg
+        vertical_stack = np.vstack((np.asarray(img.resize(lower_bound)) for img in list_img))
+        vertical_stack = Image.fromarray(vertical_stack)
+        vertical_stack.save('static/media/extrato/extrato_convertido.jpg' )
+        ## Extrato salvo no static, preparado para ser processado pelo pytesseract
+        ## A partir daqui, o repartiria para o código que está escrito no else abaixo, só que o filename mudaria para o salvado acima
     else:   
         final_image = process_image_for_ocr(path)
         pytesseract.pytesseract.tesseract_cmd = r'/usr/local/bin/tesseract'
@@ -177,7 +187,7 @@ def orc(path):
     # return context['transactions'], context['bank'], context['account']
 
 if __name__ == '__main__':
-    orc('../../static/media/extrato/extrato_itau.jpeg')
+    orc('static/media/extrato/extrato_itau.jpg')
 
 # imagem = orc('../static/media/extrato/extrato_itau.jpeg')
 # print(imagem)
