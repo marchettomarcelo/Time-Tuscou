@@ -30,8 +30,6 @@ class RegisterView(generics.CreateAPIView):
 @api_view(['POST'])
 def createProfile(request):
 
-    print(request.user)
-
     data = request.data
     user = User.objects.get(username=data['username'])
     user.profile.name = data['username']
@@ -89,8 +87,6 @@ def testEndPoint(request):
 @api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])
 def upload_transactions_info(request):
-
-    print("Bom dia")
 
     if request.method == 'POST':
 
