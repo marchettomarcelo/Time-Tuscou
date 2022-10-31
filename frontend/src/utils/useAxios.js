@@ -4,36 +4,36 @@ import dayjs from "dayjs";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
-const baseURL = "http://127.0.0.1:8000/api";
+const baseURL = "https://projagil-tuscou-django.herokuapp.com/api";
 
 const useAxios = () => {
-  const { authTokens, setUser, setAuthTokens } = useContext(AuthContext);
+    const { authTokens, setUser, setAuthTokens } = useContext(AuthContext);
 
-  const axiosInstance = axios.create({
-    baseURL,
-    headers: { Authorization: `Bearer ${authTokens?.access}` }
-  });
-
-  axiosInstance.interceptors.request.use(async req => {
-    const user = jwt_decode(authTokens.access);
-    const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-
-    if (!isExpired) return req;
-
-    const response = await axios.post(`${baseURL}/token/refresh/`, {
-      refresh: authTokens.refresh
+    const axiosInstance = axios.create({
+        baseURL,
+        headers: { Authorization: `Bearer ${authTokens?.access}` },
     });
 
-    localStorage.setItem("authTokens", JSON.stringify(response.data));
+    axiosInstance.interceptors.request.use(async (req) => {
+        const user = jwt_decode(authTokens.access);
+        const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
 
-    setAuthTokens(response.data);
-    setUser(jwt_decode(response.data.access));
+        if (!isExpired) return req;
 
-    req.headers.Authorization = `Bearer ${response.data.access}`;
-    return req;
-  });
+        const response = await axios.post(`${baseURL}/token/refresh/`, {
+            refresh: authTokens.refresh,
+        });
 
-  return axiosInstance;
+        localStorage.setItem("authTokens", JSON.stringify(response.data));
+
+        setAuthTokens(response.data);
+        setUser(jwt_decode(response.data.access));
+
+        req.headers.Authorization = `Bearer ${response.data.access}`;
+        return req;
+    });
+
+    return axiosInstance;
 };
 
 export default useAxios;

@@ -24,16 +24,19 @@ export const AuthProvider = ({ children }) => {
     const history = useHistory();
 
     const loginUser = async (username, password) => {
-        const response = await fetch("http://127.0.0.1:8000/api/token/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username,
-                password,
-            }),
-        });
+        const response = await fetch(
+            "https://projagil-tuscou-django.herokuapp.com/api/token/",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                }),
+            }
+        );
         const data = await response.json();
 
         if (response.status === 200) {
@@ -55,20 +58,23 @@ export const AuthProvider = ({ children }) => {
         phone,
         cpf
     ) => {
-        const response = await fetch("http://127.0.0.1:8000/api/register/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username,
-                password,
-                password2,
-            }),
-        });
+        const response = await fetch(
+            "https://projagil-tuscou-django.herokuapp.com/api/register/",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                    password2,
+                }),
+            }
+        );
         if (response.status === 201) {
             const profile = await axios.post(
-                "http://127.0.0.1:8000/api/profile/",
+                "https://projagil-tuscou-django.herokuapp.com/api/profile/",
                 {
                     username,
                     email,
