@@ -1,42 +1,70 @@
-# Time Tuscou
+# Getting Started with Create React App
 
-## Componentes do Grupo:
-- <a href="https://github.com/FeMCDias">Felipe Maluli</a>
-- <a href="https://github.com/marchettomarcelo">Marcelo Marchetto</a>
-- <a href="https://github.com/st4pzz">Sergio Ramella</a>
-- <a href="https://github.com/thomaschiari">Thomas Chiari</a>
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Repositórios adicionais:
-- Back-End completo em Django Rest: <a href="https://github.com/thomaschiari/back-end-transactions-projagil">Acesse aqui</a>.
-- Web Service Flask Restful (complemento Back-End): <a href="https://github.com/thomaschiari/web-service-transactions">Acesse aqui</a>.
+## Available Scripts
 
-## Qual dor pretendemos atacar?
+In the project directory, you can run:
 
-Pessoas não conseguem gerir bem suas finanças pessoais. Isso se dá tanto por falta de conhecimento quanto por falta de tempo.
+### `yarn start`
 
-## Quais são nossas personas?
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Nossas personas estão disponíveis em nosso quadro Miro, <a href="https://miro.com/app/board/uXjVPPf_Cn0=/?share_link_id=684503880772">clique aqui</a> para acessá-lo.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-## Quadro SCRUM e Business Model Canvas da Equipe
+### `yarn test`
 
-Nosso quadro SCRUM e Business Model Canvas estão disponíveis em nosso quadro Miro, <a href="https://miro.com/app/board/uXjVPPf_Cn0=/?share_link_id=684503880772">clique aqui</a> para acessá-lo.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Formulário de Validação: 
+### `yarn build`
 
-Nosso formulário de validação está disponível no link a seguir: <a href="https://forms.gle/LFK7nVBeYa9DpUxq6">Formulário de Validação</a>
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-A análise da nossa pesquisa de validação está disponível no link a seguir: <a href="https://docs.google.com/document/d/1K8RtLohKpCxTfn8mOgRvEnyryXs9KdRl094v5rHykDE/edit?usp=sharing">Análise da Pesquisa de Validação</a>
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-## Histórias de Usuário:
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Nossas histórias de usuário e priorização estão disponíveis em nosso quadro Miro, <a href="https://miro.com/app/board/uXjVPPf_Cn0=/?share_link_id=684503880772">clique aqui</a> para acessá-lo.
+### `yarn eject`
 
-Também estão disponíveis no link a seguir: <a href="https://docs.google.com/document/d/1S-5eT1Ek5PoYlLpjB808Q6wl9RJ9M3yQAw1VkiaOBJs/edit?usp=sharing">Histórias de Usuário</a>
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-## Primeira versão do Fluxo de Telas:
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-<a href='https://docs.google.com/document/d/1x9E3nC_wd-AsONpyJaAmXbdNkK8P_i4Rsu9hGczP0DY/edit?usp=sharing'>Clique aqui</a> para acessar.
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-## Tópicos da Reunião de Planejamento (24/10):
-<a href='https://docs.google.com/document/d/1Z_befx50Eez1fQansX6c28Fx-10cFPER-Rl9brAjnTo/edit?usp=sharing'>Clique aqui</a> para acessar.
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `yarn build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
